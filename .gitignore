@@ -1,0 +1,13 @@
+*.csv
+
+raw_data/*
+!raw_data/.keep
+
+saved_models/*
+!saved_models/.keep
+
+*.hdf5
+*.zip
+
+*__pycache__
+*Utils
