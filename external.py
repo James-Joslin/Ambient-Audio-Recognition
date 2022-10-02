@@ -196,14 +196,15 @@ def save_model(model_in, save_dir = "", save_name = ""):
     model_in.save_weights(f'{os.path.join(save_dir,save_name)}.hdf5')
     print("Saved model to disk")
 
-def load_model(save_dir = "", model_name = ""):
+def load_model(save_dir = "", model_name = "", show_summary = False):
     print("Loading Precomputed Model")
     json_file = open(f'{os.path.join(save_dir,model_name)}.json', 'r').read()
     model = model_from_json(json_file)
     # load weights into new model
     model.load_weights(f'{os.path.join(save_dir,model_name)}.hdf5')
     print("Loaded model from disk")
-    model.summary()
+    if show_summary:
+        model.summary()
     return model
 
 def model_accuracy(model, data, labels_dict):
@@ -231,22 +232,6 @@ def model_accuracy(model, data, labels_dict):
     plt.ylabel('Real Label')
     plt.show()
 
-# def run_inference(model, file = "", model_width = 0, model_height = 0, model_depth = 3):
-#     INDICES = {'buildings': 0, 'forest': 1, 'glacier': 2, 'mountain': 3, 'sea': 4, 'street': 5}
-
-#     image = imread(file)
-#     image = resize(
-#         image, (model_width, model_height), interpolation = INTER_AREA).reshape(
-#             (1, model_width, model_height, model_depth)
-#         )
-#     image = image/255
-#     prediction = model.predict(image).flatten()
-#     prediction_int = tf.argmax(prediction)
-
-#     named_output = list(INDICES.keys())[prediction_int]
-#     probability = prediction[prediction_int]
-
-#     return named_output, probability
     
 if __name__ == "__main__":
     pass
